@@ -1,0 +1,57 @@
+CREATE TABLE Users (
+UsuarioID VARCHAR PRIMARY KEY,
+Password VARCHAR(20), 
+Email VARCHAR(100) UNIQUE
+);
+
+CREATE TABLE Buses (
+BusID INT PRIMARY KEY AUTO_INCREMENT,
+Placa VARCHAR(20) UNIQUE,
+Modelo VARCHAR(50),
+Capacidad INT
+);
+
+CREATE TABLE Rutas (
+RutaID INT PRIMARY KEY AUTO_INCREMENT,
+Origen VARCHAR(100),
+Destino VARCHAR(100)
+);
+
+CREATE TABLE Horarios (
+HorarioID INT PRIMARY KEY AUTO_INCREMENT,
+RutaID INT,
+BusID INT,
+FechaSalida DATE,
+HoraSalida TIME,
+FechaLlegada DATE,
+Precio DECIMAL(10, 2),
+FOREIGN KEY (RutaID) REFERENCES Rutas(RutaID),
+FOREIGN KEY (BusID) REFERENCES Bus(BusID)
+);
+
+CREATE TABLE Reservas (
+ReservaID INT PRIMARY KEY AUTO_INCREMENT,
+UsuarioID VARCHAR,
+HorarioID INT,
+FechaReserva DATE,
+Asientos INT,
+Estado VARCHAR(20),
+FOREIGN KEY (UsuarioID) REFERENCES Usuarios(UsuarioID),
+FOREIGN KEY (HorarioID) REFERENCES Horarios(HorarioID)
+);
+
+
+
+
+
+///script json
+
+//Horarios
+{
+  "RutaID": 1,
+  "BusID": 1,
+  "FechaSalida": "04-05-3034",
+  "HoraSalida": "12:00",
+  "FechaLlegada": "04-09-2025",
+  "Precio": 30.00
+}

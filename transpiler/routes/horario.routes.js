@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const horario_controllers_1 = require("../controllers/horario.controllers");
+const router = (0, express_1.Router)();
+router.post('/horarios', horario_controllers_1.createHorario);
+router.get('/horarios', horario_controllers_1.getHorarios);
+router.put('/horarios/:id', horario_controllers_1.updateHorario);
+router.delete('/horarios/:id', horario_controllers_1.deleteHorario);
+router.get('/horarios/:id', horario_controllers_1.getHorario);
+exports.default = router;
