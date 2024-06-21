@@ -1,8 +1,9 @@
 import { Request, Response } from "express"
 import { Users } from "../entities/Users"
 import exp from "constants";
-import bcrypt from "bcryptjs"; // Para hashear y comparar contraseñas
-
+import nodemailer from 'nodemailer';
+import bcrypt from "bcryptjs"; 
+import jwt from "jsonwebtoken";
 export const login = async (req: Request, res: Response) => {
      try {
         const { Usuario, Password } = req.body;
@@ -18,8 +19,14 @@ export const login = async (req: Request, res: Response) => {
         if (!isMatch) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
-        
-        return res.json({ message: 'Login successful', user });
+      
+        const token = jwt.sign(
+            { id: user.Usuario, Usuario: user.Usuario }, // Payload del JWT (puedes incluir cualquier dato relevante)
+            'your_secret_key', // Clave secreta para firmar el token (deberías guardarla de manera segura)
+            { expiresIn: '1h' } // Opciones del token, como el tiempo de expiración
+        ); 
+        user.Token=token
+        return res.json(user);
     } catch (error) {
         if (error instanceof Error) {
             return res.status(500).json({ message: error.message });
@@ -43,7 +50,7 @@ try {
         user.Email = Email;
         
         await user.save()
-        return res.json(user)
+        return res.json("Agregado con exito")
 
 } catch (error) {
     if(error instanceof Error){
@@ -54,6 +61,7 @@ try {
 
 export const getUsers = async ( req:Request, res:Response) =>{
     try {
+      
         const users = await Users.find();
         return res.json(users)    
     } catch (error) {
@@ -119,3 +127,4 @@ export const getUser = async (req:Request, res: Response) => {
         }
     }
 }
+

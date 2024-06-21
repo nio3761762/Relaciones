@@ -9,7 +9,8 @@ export class Users extends BaseEntity{
     Password: string;
     @Column({type: "varchar", length: 100})
     Email: string;
-
+    @Column({ type: "varchar", length: 140, nullable: true })
+    Token: string | null;
     @OneToMany(() => Reservas, reserva => reserva.Usuario)
     reservas: Reservas[];
 }

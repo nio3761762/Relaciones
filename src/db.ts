@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
     port: 5432,
     username: "postgres",
     password: "12345678",
-    database: "transportedb",
+    database: "BDreservas",
     logging: true,
     entities: [Users, Buses, Rutas, Horarios, Reservas],
     synchronize: true

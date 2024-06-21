@@ -1,6 +1,8 @@
 import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './swaggwer';
 import userRoutes from './routes/user.routes'
 import busRoutes from './routes/bus.routes'
 import rutaRoutes from './routes/ruta.routes'
@@ -13,10 +15,13 @@ app.use(morgan('dev'));
 //tambien que utilice el modulo cors
 app.use(cors());
 app.use(express.json())
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(userRoutes)
 app.use(busRoutes)
 app.use(rutaRoutes)
 app.use(horarioRoutes)
 app.use(reservaRoutes)
+
+
 
 export default app;

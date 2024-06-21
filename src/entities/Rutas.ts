@@ -1,9 +1,10 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn,  OneToMany } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn,  OneToMany, PrimaryColumn } from "typeorm";
 import { Horarios } from "./Horarios";
 
 @Entity()
 export class Rutas extends BaseEntity{
 @PrimaryGeneratedColumn()
+@PrimaryColumn({type: "integer"})
 RutaID: number;   
 @Column({type: "varchar", length: 100})
 Origen: string;
